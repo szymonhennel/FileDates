@@ -1,8 +1,4 @@
 # Import all public functions
-Get-ChildItem -Path "$PSScriptRoot\public" -Filter *.ps1 | ForEach-Object { . $_.FullName }
+. "$PSScriptRoot\public\Set-FileDate.ps1"
 
-# Import all private functions (if any)
-Get-ChildItem -Path "$PSScriptRoot\private" -Filter *.ps1 | ForEach-Object { . $_.FullName }
-
-# Export public functions
-Get-ChildItem -Path "$PSScriptRoot\public" -Filter *.ps1 | ForEach-Object { Export-ModuleMember -Function $_.BaseName }
+Export-ModuleMember -Function Set-FileDate
