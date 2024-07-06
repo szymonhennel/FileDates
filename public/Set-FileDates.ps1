@@ -9,7 +9,13 @@ function Set-FileDates {
     )
 
     # Check if arg1 and arg2 are files
-    if ($PSCmdlet.ShouldProcess("$arg1", "Set file dates")) {
+    $whatIfMessage = if ($AlignToLastWrite) {
+        "Set CreationTime and LastWriteTime equal to LastWriteTime of $arg2"
+    } else {
+        "Set CreationTime and LastWriteTime equal to CreationTime and LastWriteTime of $arg2"
+    }
+
+    if ($PSCmdlet.ShouldProcess("$arg1", $whatIfMessage)) {
         if ((Test-Path $arg1 -PathType Leaf) -and (Test-Path $arg2 -PathType Leaf)) {
             $file1 = Get-Item $arg1
             $file2 = Get-Item $arg2
@@ -37,6 +43,7 @@ function Set-FileDates {
                 # Set the CreationTime and LastWriteTime of file1 to the specified date
                 $file1.CreationTime = $date
                 $file1.LastWriteTime = $date
+                Write-Verbose "Set CreationTime and LastWriteTime of $file1 to $date"
             }
             else {
                 Write-Error "arg2 must be a valid file path or a datetime/ISO string."
