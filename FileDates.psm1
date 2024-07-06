@@ -1,4 +1,4 @@
 # Import all public functions
-. "$PSScriptRoot\public\Set-FileDate.ps1"
+. "$PSScriptRoot\public\Set-FileDates.ps1"
 
-Export-ModuleMember -Function Set-FileDate
+Export-ModuleMember -Function Set-FileDates
